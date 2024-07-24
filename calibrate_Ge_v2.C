@@ -39,7 +39,7 @@ double double_gaus(double *x, double *par){
 
 }
 
-void calibrate_Ge(const string &inData, TString detName, TString calibSource){
+void calibrate_Ge_v2(const string &inData, TString detName, TString calibSource){
   
      vector<double> data;
      ifstream fin;
@@ -68,7 +68,7 @@ void calibrate_Ge(const string &inData, TString detName, TString calibSource){
     Int_t hight=900;
     TCanvas *c1 = new TCanvas("c1","c1",width, hight);
     c1->SetWindowSize(width + (width - c1->GetWw()), hight + (hight - c1->GetWh()));
-   // h1->Draw();
+    //h1->Draw();
     
     TString pdfName = detName + "_Calibration_with_"+ calibSource + ".pdf";
     TString pdfFileOpen = pdfName + "[" ;
@@ -101,7 +101,7 @@ void calibrate_Ge(const string &inData, TString detName, TString calibSource){
     
  if(calibSource == "Th228"){
    
-     /* //Need to tweak a lot by fixing the centroid of the unresolvable peaks here
+      //Need to tweak a lot by fixing the centroid of the unresolvable peaks here
    //Pb212 74.815 & 77.107 keV and Bi212 76.863 peaks
    
    peak_c = 74.815*m_c + b_c;
@@ -151,15 +151,7 @@ void calibrate_Ge(const string &inData, TString detName, TString calibSource){
    output << 76.863 << "\t" << fit75_77->GetParameter(6) << "\t" << fit75_77->GetParError(6) << "\t" << fit75_77->GetParameter(7) << "\t" << fit75_77->GetParError(7) << endl;
    output << 77.107 << "\t" << fit75_77->GetParameter(9) << "\t" << fit75_77->GetParError(9) << "\t" << fit75_77->GetParameter(10) << "\t" << fit75_77->GetParError(10) << endl;
    
-    */
-     // Not a smooth peak
     
-    
-    //Pb212 115 kev Peak
-    
-
-    
-     // Not a smooth peak
     //Pb212 115 kev Peak
     peak_c = 115.183*m_c + b_c;
     peak_s = 115.183*m_s + b_s;
@@ -203,9 +195,7 @@ void calibrate_Ge(const string &inData, TString detName, TString calibSource){
     sigma_e.push_back(fit131->GetParError(2));
     energy.push_back(131.613);
     
-
-    
-    //complicated fitting bad chi square
+     //complicated fitting bad chi square
     //238 kev peak from Pb212 and 240 KeV peak from Ra224
     peak_c = 238.632*m_c + b_c;
     peak_s = 238.632*m_s + b_s;
@@ -242,9 +232,10 @@ void calibrate_Ge(const string &inData, TString detName, TString calibSource){
     energy.push_back(240.986);
      output << 238.632 << "\t" << fit238_240->GetParameter(1) << "\t" << fit238_240->GetParError(1) << "\t" << fit238_240->GetParameter(2) << "\t" << fit238_240->GetParError(2) << endl;
      output << 240.986 << "\t" << fit238_240->GetParameter(6) << "\t" << fit238_240->GetParError(6) << "\t" << fit238_240->GetParameter(7) << "\t" << fit238_240->GetParError(7) << endl;
+     
 
-
-
+    
+    
     //252 kev gamma from Tl208
     peak_c = 252.61*m_c + b_c;
     peak_s = 252.61*m_s + b_s;
@@ -291,8 +282,6 @@ void calibrate_Ge(const string &inData, TString detName, TString calibSource){
     energy.push_back(277.371);
     output << 277.371 << "\t" << fit277->GetParameter(1) << "\t" << fit277->GetParError(1) << "\t" << fit277->GetParameter(2) << "\t" << fit277->GetParError(2) << endl;
     
-
-    
     //300 kev peak from Pb212
     peak_c = 300.087*m_c + b_c;
     peak_s = 300.087*m_s + b_s;
@@ -315,10 +304,8 @@ void calibrate_Ge(const string &inData, TString detName, TString calibSource){
     sigma_e.push_back(fit300->GetParError(2));
     energy.push_back(300.087);
     output << 300.087 << "\t" << fit300->GetParameter(1) << "\t" << fit300->GetParError(1) << "\t" << fit300->GetParameter(2) << "\t" << fit300->GetParError(2) << endl;
-      
-
        
-     // it will have a background from 511 keV electron capture
+    // it will have a background from 511 keV electron capture
     //Tl208 510 keV peak
     peak_c = 510.77*m_c + b_c;
     peak_s = 510.77*m_s + b_s;
@@ -385,8 +372,7 @@ void calibrate_Ge(const string &inData, TString detName, TString calibSource){
     sigma_e.push_back(fit727->GetParError(2));
     energy.push_back(727.33);
     output << 727.33 << "\t" << fit727->GetParameter(1) << "\t" << fit727->GetParError(1) << "\t" << fit727->GetParameter(2) << "\t" << fit727->GetParError(2) << endl;
-   
-
+    
     //763 kev gamma from Tl208
     peak_c = 763.13*m_c + b_c;
     peak_s = 763.13*m_s + b_s;
@@ -400,6 +386,7 @@ void calibrate_Ge(const string &inData, TString detName, TString calibSource){
     h1->SetTitle("Tl208 763.13 keV peak");
     h1->GetXaxis()->SetRange(xlow,xhigh);
     c1->Update();
+
     c1->Print(pdfName.Data());
     //cout << fit242->GetParameter(1) << endl;
     channel.push_back(fit763->GetParameter(1));
@@ -408,8 +395,7 @@ void calibrate_Ge(const string &inData, TString detName, TString calibSource){
     sigma_e.push_back(fit763->GetParError(2));
     energy.push_back(763.13);
     output << 763.13 << "\t" << fit763->GetParameter(1) << "\t" << fit763->GetParError(1) << "\t" << fit763->GetParameter(2) << "\t" << fit763->GetParError(2) << endl;
-  
-
+    
     //785 kev gamma from Bi212
     peak_c = 785.37*m_c + b_c;
     peak_s = 785.37*m_s + b_s;
@@ -431,8 +417,6 @@ void calibrate_Ge(const string &inData, TString detName, TString calibSource){
     sigma_e.push_back(fit785->GetParError(2));
     energy.push_back(785.37);
     output << 785.37 << "\t" << fit785->GetParameter(1) << "\t" << fit785->GetParError(1) << "\t" << fit785->GetParameter(2) << "\t" << fit785->GetParError(2) << endl;
-
-
 
    //Tl208 860 kev peak
     peak_c = 860.564*m_c + b_c;
@@ -456,8 +440,6 @@ void calibrate_Ge(const string &inData, TString detName, TString calibSource){
     energy.push_back(860.564);
     output << 860.564 << "\t" << fit860->GetParameter(1) << "\t" << fit860->GetParError(1) << "\t" << fit860->GetParameter(2) << "\t" << fit860->GetParError(2) << endl;
     
-
-    
     //Bi212 893 kev peak
     peak_c = 893.408*m_c + b_c;
     peak_s = 893.408*m_s + b_s;
@@ -479,15 +461,15 @@ void calibrate_Ge(const string &inData, TString detName, TString calibSource){
     sigma_e.push_back(fit893->GetParError(2));
     energy.push_back(893.408);
     output << 893.408 << "\t" << fit893->GetParameter(1) << "\t" << fit893->GetParError(1) << "\t" << fit893->GetParameter(2) << "\t" << fit893->GetParError(2) << endl;
-
+ 
     //Bi212 1078 kev peak
     peak_c = 1078.62*m_c + b_c;
     peak_s = 1078.62*m_s + b_s;
     xlow = peak_c - 40.;
     xhigh = peak_c + 30.;
-    TF1* fit1078_v1 = new TF1("fit1078",gaus_linear,xlow,xhigh,5);
-    fit1078_v1->SetParNames("A","#mu","#sigma","b","m");
-    fit1078_v1->SetParameters(5.4e4,peak_c,peak_s,7780.,-3.1);
+    TF1* fit1078 = new TF1("fit1078",gaus_linear,xlow,xhigh,5);
+    fit1078->SetParNames("A","#mu","#sigma","b","m");
+    fit1078->SetParameters(5.4e4,peak_c,peak_s,7780.,-3.1);
     h1->GetXaxis()->SetRange(0,0);
     h1->Fit("fit1078","E","",xlow,xhigh);
     h1->SetTitle("Bi212 1078.62 kev Peak");
@@ -495,14 +477,14 @@ void calibrate_Ge(const string &inData, TString detName, TString calibSource){
     c1->Update();
     c1->Print(pdfName.Data());
     //cout << fit295->GetParameter(1) << endl;
-    channel.push_back(fit1078_v1->GetParameter(1));
-    channel_e.push_back(fit1078_v1->GetParError(1));
-    sigma.push_back(fit1078_v1->GetParameter(2));
-    sigma_e.push_back(fit1078_v1->GetParError(2));
+    channel.push_back(fit1078->GetParameter(1));
+    channel_e.push_back(fit1078->GetParError(1));
+    sigma.push_back(fit1078->GetParameter(2));
+    sigma_e.push_back(fit1078->GetParError(2));
     energy.push_back(1078.62);
-    output << 1078.62 << "\t" << fit1078_v1->GetParameter(1) << "\t" << fit1078_v1->GetParError(1) << "\t" << fit1078_v1->GetParameter(2) << "\t" << fit1078_v1->GetParError(2) << endl;
- 
-
+    output << 1078.62 << "\t" << fit1078->GetParameter(1) << "\t" << fit1078->GetParError(1) << "\t" << fit1078->GetParameter(2) << "\t" << fit1078->GetParError(2) << endl;
+   
+   
     //Tl208 1093 kev peak
     peak_c = 1093.9*m_c + b_c;
     peak_s = 1093.9*m_s + b_s;
@@ -525,8 +507,7 @@ void calibrate_Ge(const string &inData, TString detName, TString calibSource){
     sigma_e.push_back(fit1093->GetParError(2));
     energy.push_back(1093.9);
     output << 1093.9 << "\t" << fit1093->GetParameter(1) << "\t" << fit1093->GetParError(1) << "\t" << fit1093->GetParameter(2) << "\t" << fit1093->GetParError(2) << endl;
-   
-
+    
    //Bi212 1078 kev and Tl208 1093.9 kev peak together
    peak_c = 1078.62*m_c + b_c;
    peak_s = 1078.62*m_s + b_s;
@@ -534,7 +515,7 @@ void calibrate_Ge(const string &inData, TString detName, TString calibSource){
    peak_s2 = 1093.9*m_s + b_s;
    xlow = peak_c - 10.;
    xhigh = peak_c2 + 10.;
-   TF1* fit1078 = new TF1("fit1078",double_gaus_linear,xlow,xhigh,8);
+   TF1* fit1078_2 = new TF1("fit1078_2",double_gaus_linear,xlow,xhigh,8);
    fit1078->SetParNames("A","#mu","#sigma","b","m","A2","#mu2","#sigma2");
    fit1078->SetParameters(650.,peak_c,peak_s,500.,-0.87,1046,peak_c2,peak_s2);
    h1->GetXaxis()->SetRange(0,0);
@@ -556,8 +537,8 @@ void calibrate_Ge(const string &inData, TString detName, TString calibSource){
    sigma_e.push_back(fit1078->GetParError(7));
    energy.push_back(1093.9);
    output << 1093.9 << "\t" << fit1078->GetParameter(6) << "\t" << fit1078->GetParError(6) << "\t" << fit1078->GetParameter(7) << "\t" << fit1078->GetParError(7) << endl;
- 
-
+   
+  
     //Bi212 1512 kev peak
     peak_c = 1512.7*m_c + b_c;
     peak_s = 1512.7*m_s + b_s;
@@ -623,7 +604,7 @@ void calibrate_Ge(const string &inData, TString detName, TString calibSource){
     sigma_e.push_back(fit1620->GetParError(2));
     energy.push_back(1620.5);
     output << 1620.5 << "\t" << fit1620->GetParameter(1) << "\t" << fit1620->GetParError(1) << "\t" << fit1620->GetParameter(2) << "\t" << fit1620->GetParError(2) << endl;
-  
+    
     //Tl208 single escape 2103 kev peak : the pair production one of them escapes
     peak_c = 2103.533*m_c + b_c;
     peak_s = 2103.533*m_s + b_s;
@@ -647,7 +628,8 @@ void calibrate_Ge(const string &inData, TString detName, TString calibSource){
     sigma_e.push_back(fit2103->GetParError(2));
     energy.push_back(2103.533);
     output << 2103.533 << "\t" << fit2103->GetParameter(1) << "\t" << fit2103->GetParError(1) << "\t" << fit2103->GetParameter(2) << "\t" << fit2103->GetParError(2) << endl;
-   
+    
+    
     //Tl208 2614 keV peak
     peak_c = 2614.533*m_c + b_c;
     peak_s = 2614.533*m_s + b_s;
